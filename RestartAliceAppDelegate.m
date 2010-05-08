@@ -7,10 +7,11 @@
 //
 
 #import "RestartAliceAppDelegate.h"
+#import "PreferenceController.h"
 
 @implementation RestartAliceAppDelegate
 
-@synthesize window, sbMenu, restartItem;
+@synthesize sbMenu, restartItem;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   sbItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -35,6 +36,14 @@
 	[sbItem setAlternateImage: statusImageConnecting];
 }
 
+-(IBAction) showPreferences: (id) sender{
+  if(!preferenceController){
+    preferenceController = [[PreferenceController alloc] init];
+  }
+  [NSApp activateIgnoringOtherApps: YES];
+  [preferenceController showWindow:self];
+}
+
 -(void) enableRestartItem{
   [restartItem setEnabled:YES];
   [sbItem setImage: statusImageDefault];
@@ -52,7 +61,7 @@
 
 - (void) dealloc {
   [restarter release];
-  [window release];
+  [preferenceController release];
   [sbMenu release];
   [sbItem release];
   [restartItem release];

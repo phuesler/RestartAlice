@@ -8,27 +8,25 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Restarter.h"
+@class PreferenceController;
 
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
-  @interface RestartAliceAppDelegate : NSObject {
-#else
-  @interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
-#endif
+
+@interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
     
-    NSWindow *window;
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
     Restarter *restarter;
     NSMenuItem *restartItem;
     NSImage *statusImageDefault;
     NSImage *statusImageConnecting;
+    PreferenceController * preferenceController;
 }
 
-@property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSMenu *sbMenu;
 @property (assign) IBOutlet NSMenuItem *restartItem;
 
 -(IBAction) restart: (id) sender;
+-(IBAction) showPreferences: (id) sender;
 -(void) aliceDSLRestartSuccessfull;
 -(void) aliceDSLRestartFailedWithError:(NSError *) error;
 

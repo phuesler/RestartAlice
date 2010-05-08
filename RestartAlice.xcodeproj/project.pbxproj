@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		035C0CD3119598BC00C6B0DC /* alicedmg.png in Resources */ = {isa = PBXBuildFile; fileRef = 035C0CD2119598BC00C6B0DC /* alicedmg.png */; };
 		035C0EB01195CA6F00C6B0DC /* status_icon_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 035C0EAF1195CA6F00C6B0DC /* status_icon_red.png */; };
+		035C0F521195D46600C6B0DC /* SDKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C0F511195D46600C6B0DC /* SDKeychain.m */; };
+		035C0F561195D4AB00C6B0DC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035C0F551195D4AB00C6B0DC /* Security.framework */; };
+		035C0F5D1195D57200C6B0DC /* PreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C0F5C1195D57200C6B0DC /* PreferenceController.m */; };
+		035C0F5F1195D58900C6B0DC /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035C0F5E1195D58900C6B0DC /* Preferences.xib */; };
 		037D0AD11194C9F2009831A9 /* Restarter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037D0AD01194C9F2009831A9 /* Restarter.m */; };
 		037D0C0A1194E6D0009831A9 /* status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 037D0C091194E6D0009831A9 /* status_icon.png */; };
 		037D0C371194EC2A009831A9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 037D0C361194EC2A009831A9 /* Icon.icns */; };
@@ -22,6 +26,12 @@
 /* Begin PBXFileReference section */
 		035C0CD2119598BC00C6B0DC /* alicedmg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alicedmg.png; sourceTree = "<group>"; };
 		035C0EAF1195CA6F00C6B0DC /* status_icon_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_icon_red.png; sourceTree = "<group>"; };
+		035C0F501195D46600C6B0DC /* SDKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKeychain.h; sourceTree = "<group>"; };
+		035C0F511195D46600C6B0DC /* SDKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKeychain.m; sourceTree = "<group>"; };
+		035C0F551195D4AB00C6B0DC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		035C0F5B1195D57200C6B0DC /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
+		035C0F5C1195D57200C6B0DC /* PreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceController.m; sourceTree = "<group>"; };
+		035C0F5E1195D58900C6B0DC /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		037D0A131194C109009831A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		037D0ACF1194C9F2009831A9 /* Restarter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restarter.h; sourceTree = "<group>"; };
 		037D0AD01194C9F2009831A9 /* Restarter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restarter.m; sourceTree = "<group>"; };
@@ -46,15 +56,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				035C0F561195D4AB00C6B0DC /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		035C0F4D1195D45600C6B0DC /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				035C0F501195D46600C6B0DC /* SDKeychain.h */,
+				035C0F511195D46600C6B0DC /* SDKeychain.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				035C0F5B1195D57200C6B0DC /* PreferenceController.h */,
+				035C0F5C1195D57200C6B0DC /* PreferenceController.m */,
 				256AC3D80F4B6AC300CF3369 /* RestartAliceAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* RestartAliceAppDelegate.m */,
 				037D0ACF1194C9F2009831A9 /* Restarter.h */,
@@ -92,6 +114,7 @@
 		29B97314FDCFA39411CA2CEA /* RestartAlice */ = {
 			isa = PBXGroup;
 			children = (
+				035C0F4D1195D45600C6B0DC /* Vendor */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -113,6 +136,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				035C0F5E1195D58900C6B0DC /* Preferences.xib */,
 				035C0CD2119598BC00C6B0DC /* alicedmg.png */,
 				035C0EAF1195CA6F00C6B0DC /* status_icon_red.png */,
 				037D0C361194EC2A009831A9 /* Icon.icns */,
@@ -129,6 +153,7 @@
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				035C0F551195D4AB00C6B0DC /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,6 +207,7 @@
 				037D0C371194EC2A009831A9 /* Icon.icns in Resources */,
 				035C0CD3119598BC00C6B0DC /* alicedmg.png in Resources */,
 				035C0EB01195CA6F00C6B0DC /* status_icon_red.png in Resources */,
+				035C0F5F1195D58900C6B0DC /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +221,8 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* RestartAliceAppDelegate.m in Sources */,
 				037D0AD11194C9F2009831A9 /* Restarter.m in Sources */,
+				035C0F521195D46600C6B0DC /* SDKeychain.m in Sources */,
+				035C0F5D1195D57200C6B0DC /* PreferenceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
