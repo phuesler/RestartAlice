@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		035C0CD3119598BC00C6B0DC /* alicedmg.png in Resources */ = {isa = PBXBuildFile; fileRef = 035C0CD2119598BC00C6B0DC /* alicedmg.png */; };
 		037D0AD11194C9F2009831A9 /* Restarter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037D0AD01194C9F2009831A9 /* Restarter.m */; };
 		037D0C0A1194E6D0009831A9 /* status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 037D0C091194E6D0009831A9 /* status_icon.png */; };
 		037D0C371194EC2A009831A9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 037D0C361194EC2A009831A9 /* Icon.icns */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		035C0CD2119598BC00C6B0DC /* alicedmg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alicedmg.png; sourceTree = "<group>"; };
 		037D0A131194C109009831A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		037D0ACF1194C9F2009831A9 /* Restarter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restarter.h; sourceTree = "<group>"; };
 		037D0AD01194C9F2009831A9 /* Restarter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restarter.m; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				035C0CD2119598BC00C6B0DC /* alicedmg.png */,
 				037D0C361194EC2A009831A9 /* Icon.icns */,
 				037D0C091194E6D0009831A9 /* status_icon.png */,
 				037D0A131194C109009831A9 /* Info.plist */,
@@ -174,6 +177,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				037D0C0A1194E6D0009831A9 /* status_icon.png in Resources */,
 				037D0C371194EC2A009831A9 /* Icon.icns in Resources */,
+				035C0CD3119598BC00C6B0DC /* alicedmg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
