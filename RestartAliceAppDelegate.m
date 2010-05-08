@@ -27,10 +27,16 @@
   statusImageConnecting = [[NSImage alloc] initWithContentsOfFile: [bundle pathForResource: @"status_icon_red" ofType: @"png"]];
 	[sbItem setImage: statusImageDefault];
 	[sbItem setAlternateImage: statusImageDefault];
+  
+  preferenceController = [[PreferenceController alloc] init];
 }
 
 - (IBAction) restart: (id) sender {
-  restarter = [Restarter restartConnection: @"http://192.168.1.1" password:@"Q8sps0oBch" delegate:self];
+  restarter = [Restarter restartConnection: [preferenceController getRouterURL] 
+                         username: [preferenceController getUsername]
+                         password:[preferenceController getPassword]
+                         delegate:self];
+  
   [restartItem setEnabled:NO];
   [sbItem setImage: statusImageConnecting];
 	[sbItem setAlternateImage: statusImageConnecting];

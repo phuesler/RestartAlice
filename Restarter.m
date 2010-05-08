@@ -11,18 +11,19 @@
 
 @implementation Restarter
 
-+ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password delegate: (id) delegate {
-  Restarter *restarter = [[Restarter alloc] initWithURL: routerURL andPassword: password delegate: delegate];
++ (Restarter *) restartConnection:(NSString *) routerURL username: (NSString *) username password: (NSString *) password delegate: (id) delegate {
+  Restarter *restarter = [[Restarter alloc] initWithURL: routerURL username: username andPassword: password delegate: delegate];
   [NSThread detachNewThreadSelector:@selector(run) toTarget:restarter withObject:nil];
   return restarter;
 }
 
-- (id) initWithURL: (NSString *) _routerURL andPassword: (NSString *) _password delegate:(id) _delegate {
+- (id) initWithURL: (NSString *) _routerURL username: (NSString *) _username andPassword: (NSString *) _password delegate:(id) _delegate {
   if(![super init])
   {
     return nil;
   }
   
+  username = _username;
   password = _password;
   routerURL = _routerURL;
   loginURL = [NSURL URLWithString: [[NSString alloc] initWithFormat:@"%@/alicelogin", routerURL]];
@@ -31,6 +32,9 @@
 }
 
 -(void) run {
+  # if DEBUG
+    NSLog(@"%@,%@,%@", routerURL, username, password);
+  # endif
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   if ([self login] && [self disconnectDSL] && [self connectDSL])
   {
@@ -46,7 +50,9 @@
 }
 
 - (bool) runRequest: (NSURLRequest *)request {
-  NSLog(@"%@", @"run request");
+  # if DEBUG
+    NSLog(@"%@", @"run request");
+  # endif
   NSURLResponse * response;
   NSError * error;
   NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -63,7 +69,7 @@
   [loginRequest setHTTPMethod:@"POST"];
   [loginRequest addValue:@"Content-Type" forHTTPHeaderField:@"application/x-www-form-urlencoded"];  
   [loginRequest addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-  NSString *requestBody = [[NSString alloc] initWithFormat:@"loginUserName=admin&loginPassword=%@", password];
+  NSString *requestBody = [[NSString alloc] initWithFormat:@"loginUserName=%@&loginPassword=%@", username, password];
   
   [loginRequest setHTTPBody:[requestBody dataUsingEncoding:NSASCIIStringEncoding]];
   return [self runRequest:loginRequest];
@@ -91,6 +97,7 @@
 }
 
 -(void) dealloc {
+  [username release];
   [password release];
   [routerURL release];
   [loginURL release];

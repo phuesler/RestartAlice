@@ -9,43 +9,49 @@
 #import "PreferenceController.h"
 #import "SDKeychain.h"
 
+NSString * const RALUsernameKey = @"Username";
+NSString * const RALRouterURLKey = @"RouterURL";
+
 @implementation PreferenceController
+
 @synthesize passwordField, routerURLField;
 
 + (void) initialize {
   NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
-  [defaultValues setObject:@"http://192.168.1.1" forKey:@"RouterURL"];
+  [defaultValues setObject:@"http://192.168.1.1" forKey:RALRouterURLKey];
+  [defaultValues setObject:@"admin" forKey:RALUsernameKey];
   [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
-  NSLog(@"registered default valies");
 }
 
 - (id)init{
   if(![super initWithWindowNibName:@"Preferences"]){
     return nil;
   }
-     return self;
+  return self;
 }
 
-- (NSString *) routerURL{
-  return [[NSUserDefaults standardUserDefaults] stringForKey:@"RouterURL"];
-}
-
-     
 - (void) windowDidLoad{
-  NSLog(@"Nib file is loaded");
+  [routerURLField setStringValue:[self getRouterURL]];
+}
+
+- (NSString *) getRouterURL{
+  return [[NSUserDefaults standardUserDefaults] stringForKey:RALRouterURLKey];
+}
+
+- (NSString *) getUsername{
+  return [[NSUserDefaults standardUserDefaults] stringForKey:RALUsernameKey];
 }
 
 -(NSString *) getPassword {
-  	return [SDKeychain securePasswordForIdentifier: @"admin"];
+  	return [SDKeychain securePasswordForIdentifier: [self getUsername]];
 }
 
+
 -(IBAction) changePassword: (id) sender {
-  NSLog(@"change password, written to keychain %@", [passwordField stringValue]);
-  [SDKeychain setSecurePassword:[passwordField stringValue] forIdentifier: @"admin"];
+  [SDKeychain setSecurePassword:[passwordField stringValue] forIdentifier: [self getUsername]];
 }
 
 -(IBAction) changeRouterURL: (id) sender {
-  NSLog(@"change router url");
   [[NSUserDefaults standardUserDefaults] setObject:[routerURLField stringValue] forKey: @"RouterURL"];
 }
 @end

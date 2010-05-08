@@ -16,13 +16,14 @@ typedef int AliceConnectionAction;
 
 
 @interface Restarter : NSObject {
+  NSString *username;
   NSString *password;
   NSString *routerURL;
   NSURL *loginURL;
   id delegate;
 }
-+ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password delegate:(id) delegate;
-- (id) initWithURL: (NSString *) _url andPassword: (NSString *) _password delegate: (id) delegate;
++ (Restarter *) restartConnection:(NSString *) routerURL username: (NSString *) username password: (NSString *) password delegate:(id) delegate;
+- (id) initWithURL: (NSString *) _url username: (NSString *) username andPassword: (NSString *) _password delegate: (id) delegate;
 -(void) run;
 -(bool) login;
 -(bool) connectDSL;
