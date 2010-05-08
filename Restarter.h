@@ -19,9 +19,10 @@ typedef int AliceConnectionAction;
   NSString *password;
   NSString *routerURL;
   NSURL *loginURL;
+  id delegate;
 }
-+ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password;
-- (id) initWithURL: (NSString *) _url andPassword: (NSString *) _password;
++ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password delegate:(id) delegate;
+- (id) initWithURL: (NSString *) _url andPassword: (NSString *) _password delegate: (id) delegate;
 -(void) run;
 -(bool) login;
 -(bool) connectDSL;

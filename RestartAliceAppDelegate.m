@@ -29,7 +29,15 @@
 }
 
 - (IBAction) restart: (id) sender {
-  restarter = [Restarter restartConnection: @"http://192.168.1.1" password:@"Q8sps0oBch"];
+  restarter = [Restarter restartConnection: @"http://192.168.1.1" password:@"Q8sps0oBch" delegate:self];
+}
+
+-(void) aliceDSLRestartSuccessfull{
+  NSLog(@"%@",@"Restarted successfully");
+}
+
+-(void) aliceDSLRestartFailed{
+  NSLog(@"%@",@"Restart failed");
 }
 
 - (void) dealloc {

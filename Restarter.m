@@ -11,13 +11,13 @@
 
 @implementation Restarter
 
-+ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password {
-  Restarter *restarter = [[Restarter alloc] initWithURL: routerURL andPassword: password];
++ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password delegate: (id) delegate {
+  Restarter *restarter = [[Restarter alloc] initWithURL: routerURL andPassword: password delegate: delegate];
   [NSThread detachNewThreadSelector:@selector(run) toTarget:restarter withObject:nil];
   return restarter;
 }
 
-- (id) initWithURL: (NSString *) _routerURL andPassword: (NSString *) _password {
+- (id) initWithURL: (NSString *) _routerURL andPassword: (NSString *) _password delegate:(id) _delegate {
   if(![super init])
   {
     return nil;
@@ -26,7 +26,20 @@
   password = _password;
   routerURL = _routerURL;
   loginURL = [NSURL URLWithString: [[NSString alloc] initWithFormat:@"%@/alicelogin", routerURL]];
+  delegate = _delegate;
   return self;
+}
+
+-(void) run {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  if ([self login] && [self disconnectDSL] && [self connectDSL])
+  {
+    [delegate aliceDSLRestartSuccessfull];
+  }
+  else {
+    [delegate aliceDSLRestartFailed];
+  }
+  [pool release]; 
 }
 
 - (bool) runRequest: (NSURLRequest *)request {
@@ -72,18 +85,6 @@
 
 - (bool) connectDSL {
   return [self reconnect:AliceConnect];
-}
-
--(void) run {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  if ([self login] && [self disconnectDSL] && [self connectDSL])
-  {
-    NSLog(@"%@", @"ok");
-  }
-  else {
-    NSLog(@"%@", @"not ok");
-  }
-  [pool release]; 
 }
 
 -(void) dealloc {

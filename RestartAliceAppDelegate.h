@@ -25,5 +25,7 @@
 @property (assign) IBOutlet NSMenu *sbMenu;
 
 -(IBAction) restart: (id) sender;
+-(void) aliceDSLRestartSuccessfull;
+-(void) aliceDSLRestartFailed;    
 
 @end
