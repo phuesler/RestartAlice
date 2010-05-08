@@ -10,34 +10,44 @@
 
 @implementation RestartAliceAppDelegate
 
-@synthesize window, sbMenu;
+@synthesize window, sbMenu, restartItem;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   sbItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-	[sbItem retain];
-	//[self setStatusIcon];
+  // retain the the item, otherwise it will not show up in the status bar
+  [sbItem retain];
 	[sbItem setToolTip: @"RestartAlice"];
 	[sbItem setHighlightMode:YES];
 	[sbItem setEnabled:YES];
 	[sbItem setMenu:sbMenu];
 	[sbMenu setAutoenablesItems:false];
   NSBundle *bundle = [NSBundle mainBundle];
-  NSImage * statusImage = [[NSImage alloc] initWithContentsOfFile: [bundle pathForResource: @"status_icon" ofType: @"png"]];	
-	[sbItem setImage: statusImage];
-	[sbItem setAlternateImage: statusImage];
-  [statusImage release];
+  statusImageDefault = [[NSImage alloc] initWithContentsOfFile: [bundle pathForResource: @"status_icon" ofType: @"png"]];
+  statusImageConnecting = [[NSImage alloc] initWithContentsOfFile: [bundle pathForResource: @"status_icon_red" ofType: @"png"]];
+	[sbItem setImage: statusImageDefault];
+	[sbItem setAlternateImage: statusImageDefault];
 }
 
 - (IBAction) restart: (id) sender {
   restarter = [Restarter restartConnection: @"http://192.168.1.1" password:@"Q8sps0oBch" delegate:self];
+  [restartItem setEnabled:NO];
+  [sbItem setImage: statusImageConnecting];
+	[sbItem setAlternateImage: statusImageConnecting];
+}
+
+-(void) enableRestartItem{
+  [restartItem setEnabled:YES];
+  [sbItem setImage: statusImageDefault];
+	[sbItem setAlternateImage: statusImageDefault];
 }
 
 -(void) aliceDSLRestartSuccessfull{
-  NSLog(@"%@",@"Restarted successfully");
+  [self enableRestartItem];
 }
 
--(void) aliceDSLRestartFailed{
-  NSLog(@"%@",@"Restart failed");
+-(void) aliceDSLRestartFailedWithError:(NSError *) error{
+  [NSApp presentError:error];
+  [self enableRestartItem];
 }
 
 - (void) dealloc {
@@ -45,6 +55,9 @@
   [window release];
   [sbMenu release];
   [sbItem release];
+  [restartItem release];
+  [statusImageConnecting release];
+  [statusImageDefault release];
   [super dealloc];
 }
 

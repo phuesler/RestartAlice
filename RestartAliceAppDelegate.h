@@ -19,13 +19,17 @@
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
     Restarter *restarter;
+    NSMenuItem *restartItem;
+    NSImage *statusImageDefault;
+    NSImage *statusImageConnecting;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSMenu *sbMenu;
+@property (assign) IBOutlet NSMenuItem *restartItem;
 
 -(IBAction) restart: (id) sender;
 -(void) aliceDSLRestartSuccessfull;
--(void) aliceDSLRestartFailed;    
+-(void) aliceDSLRestartFailedWithError:(NSError *) error;
 
 @end

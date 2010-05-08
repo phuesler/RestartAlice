@@ -37,7 +37,10 @@
     [delegate aliceDSLRestartSuccessfull];
   }
   else {
-    [delegate aliceDSLRestartFailed];
+    NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
+    [errorDetail setValue:@"Failed to restart" forKey:NSLocalizedDescriptionKey];
+    NSError *error = [NSError errorWithDomain:@"myDomain" code:100 userInfo:errorDetail];
+    [delegate aliceDSLRestartFailedWithError:error];
   }
   [pool release]; 
 }
