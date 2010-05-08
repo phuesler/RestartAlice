@@ -21,11 +21,12 @@
 	[sbItem setHighlightMode:YES];
 	[sbItem setEnabled:YES];
 	[sbItem setMenu:sbMenu];
-	[sbMenu setAutoenablesItems:false];  
+	[sbMenu setAutoenablesItems:false];
+  restarter = [[Restarter alloc] init];
 }
 
 - (IBAction) restart: (id) sender {
-  NSLog(@"%@", @"restart");
+  [NSThread detachNewThreadSelector:@selector(run) toTarget:restarter withObject:nil];
 }
 
 

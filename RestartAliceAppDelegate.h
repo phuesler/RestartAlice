@@ -7,12 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Restarter.h"
 
 @interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
-    NSImage *statusImage;  
+    NSImage *statusImage;
+    Restarter *restarter;
 }
 
 @property (assign) IBOutlet NSWindow *window;
