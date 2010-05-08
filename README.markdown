@@ -4,7 +4,7 @@ Tired of having to log into your Alice DSL Router to restart your DSL line? Me t
 
 ## Download
 
-The most recent version can be found [here.](http://http://applications.huesler-informatik.ch/downloads/RestartAlice)
+The most recent version can be found [here.](http://applications.huesler-informatik.ch/downloads/RestartAlice)
 
 ## Requirements to build diskimage
 
