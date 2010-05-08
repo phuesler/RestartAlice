@@ -9,7 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "Restarter.h"
 
-@interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
+  @interface RestartAliceAppDelegate : NSObject {
+#else
+  @interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
+#endif
+    
     NSWindow *window;
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
