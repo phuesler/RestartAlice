@@ -4,10 +4,14 @@ require "rake"
 require "choctop"
 require 'highline/import'
 
+class ChocTop
+  def user
+    @user ||= ask("User for server please: ")
+  end
+end
+
 ChocTop.new do |s|
   # Remote upload target (set host if not same as Info.plist['SUFeedURL'])
-  s.host     = 'mosphere.ch'
-  s.user = ask("User for server please: ")
   s.remote_dir = '/home/mosphere/www/applications.huesler-informatik.ch/downloads/RestartAlice'
   # Custom DMG
   s.background_file = "alicedmg.png"
