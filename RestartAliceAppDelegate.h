@@ -13,7 +13,6 @@
     NSWindow *window;
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
-    NSImage *statusImage;
     Restarter *restarter;
 }
 

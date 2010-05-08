@@ -31,7 +31,7 @@
   [loginRequest addValue:@"Content-Type" forHTTPHeaderField:@"application/x-www-form-urlencoded"];  
   [loginRequest addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
   NSString *requestBody = [[NSString alloc] 
-                           initWithFormat:@"loginUserName=admin&loginPassword=%@", @"YOUR PASSWORD"];
+                           initWithFormat:@"loginUserName=admin&loginPassword=%@", @"Q8sps0oBch"];
   
   [loginRequest setHTTPBody:[requestBody dataUsingEncoding:NSASCIIStringEncoding]];
   return [self runRequest:loginRequest];

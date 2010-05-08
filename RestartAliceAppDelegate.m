@@ -16,12 +16,17 @@
   sbItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 	[sbItem retain];
 	//[self setStatusIcon];
-  [sbItem setTitle:@"Alice"];
-	[sbItem setToolTip: @"Alice"];
+	[sbItem setToolTip: @"RestartAlice"];
 	[sbItem setHighlightMode:YES];
 	[sbItem setEnabled:YES];
 	[sbItem setMenu:sbMenu];
 	[sbMenu setAutoenablesItems:false];
+  NSBundle *bundle = [NSBundle mainBundle];
+  NSImage * statusImage = [[NSImage alloc] initWithContentsOfFile: [bundle pathForResource: @"status_icon" ofType: @"png"]];	
+	[sbItem setImage: statusImage];
+	[sbItem setAlternateImage: statusImage];
+  [statusImage release];
+  
   restarter = [[Restarter alloc] init];
 }
 
