@@ -11,6 +11,24 @@
 
 @implementation Restarter
 
++ (Restarter *) restartConnection:(NSString *) routerURL password: (NSString *) password {
+  Restarter *restarter = [[Restarter alloc] initWithURL: routerURL andPassword: password];
+  [NSThread detachNewThreadSelector:@selector(run) toTarget:restarter withObject:nil];
+  return restarter;
+}
+
+- (id) initWithURL: (NSString *) _routerURL andPassword: (NSString *) _password {
+  if(![super init])
+  {
+    return nil;
+  }
+  
+  password = _password;
+  routerURL = _routerURL;
+  loginURL = [NSURL URLWithString: [[NSString alloc] initWithFormat:@"%@/alicelogin", routerURL]];
+  return self;
+}
+
 - (bool) runRequest: (NSURLRequest *)request {
   NSLog(@"%@", @"run request");
   NSURLResponse * response;
@@ -25,13 +43,11 @@
 }
 
 -(bool) login {
-  NSURL *url = [NSURL URLWithString:@"http://192.168.1.1/alicelogin"];  
-  NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:url];
+  NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:loginURL];
   [loginRequest setHTTPMethod:@"POST"];
   [loginRequest addValue:@"Content-Type" forHTTPHeaderField:@"application/x-www-form-urlencoded"];  
   [loginRequest addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-  NSString *requestBody = [[NSString alloc] 
-                           initWithFormat:@"loginUserName=admin&loginPassword=%@", @"Q8sps0oBch"];
+  NSString *requestBody = [[NSString alloc] initWithFormat:@"loginUserName=admin&loginPassword=%@", password];
   
   [loginRequest setHTTPBody:[requestBody dataUsingEncoding:NSASCIIStringEncoding]];
   return [self runRequest:loginRequest];
@@ -40,7 +56,11 @@
 -(bool) reconnect:(AliceConnectionAction)connectNowValue{
   NSURL *url = [NSURL URLWithString: [
                 [NSString alloc] 
-                initWithFormat:@"http://192.168.1.1/pppctrl.cmd?action=infoconnect&conId=1&vpi=1&vci=32&portId%20=%200&connectNow=%d",connectNowValue]
+                initWithFormat:@"%@/pppctrl.cmd?"
+                @"action=infoconnect&conId=1&vpi=1&vci=32&portId%20=%200&"
+                @"connectNow=%d",
+                routerURL,
+                connectNowValue]
                 ];
   return [self runRequest: [NSURLRequest requestWithURL:url] ];
   
@@ -63,7 +83,14 @@
   else {
     NSLog(@"%@", @"not ok");
   }
-  [pool release];  
+  [pool release]; 
+}
+
+-(void) dealloc {
+  [password release];
+  [routerURL release];
+  [loginURL release];
+  [super dealloc];
 }
 
 @end

@@ -26,12 +26,18 @@
 	[sbItem setImage: statusImage];
 	[sbItem setAlternateImage: statusImage];
   [statusImage release];
-  
-  restarter = [[Restarter alloc] init];
 }
 
 - (IBAction) restart: (id) sender {
-  [NSThread detachNewThreadSelector:@selector(run) toTarget:restarter withObject:nil];
+  restarter = [Restarter restartConnection: @"http://192.168.1.1" password:@"Q8sps0oBch"];
+}
+
+- (void) dealloc {
+  [restarter release];
+  [window release];
+  [sbMenu release];
+  [sbItem release];
+  [super dealloc];
 }
 
 
