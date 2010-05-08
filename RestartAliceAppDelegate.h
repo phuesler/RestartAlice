@@ -10,9 +10,11 @@
 #import "Restarter.h"
 @class PreferenceController;
 
-
+#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
+@interface RestartAliceAppDelegate : NSObject {
+#else
 @interface RestartAliceAppDelegate : NSObject <NSApplicationDelegate> {
-    
+#endif
     NSStatusItem *sbItem;
     NSMenu *sbMenu;
     Restarter *restarter;

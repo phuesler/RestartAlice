@@ -2,12 +2,13 @@ require "rubygems"
 require "rake"
 
 require "choctop"
+require 'highline/import'
 
 ChocTop.new do |s|
   # Remote upload target (set host if not same as Info.plist['SUFeedURL'])
-  # s.host     = 'restartalice.com'
-  s.remote_dir = '/path/to/upload/root/of/app'
-
+  s.host     = 'mosphere.ch'
+  s.user = ask("User for server please: ")
+  s.remote_dir = '/home/mosphere/www/applications.huesler-informatik.ch/downloads/RestartAlice'
   # Custom DMG
   s.background_file = "alicedmg.png"
   # s.app_icon_position = [100, 90]
